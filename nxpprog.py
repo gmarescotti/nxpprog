@@ -326,6 +326,12 @@ cpu_parms = {
             "devid": 0x0444102B,
             "flash_prog_buffer_size" : 1024
         },
+        "lpc11c24" : {
+            "flash_sector" : flash_sector_lpc11xx,
+            "flash_prog_buffer_base" : 0x10000400,
+            "devid": 0x1430102B,
+            "flash_prog_buffer_size" : 1024
+        },
         # lpc18xx
         "lpc1817" : {
             "flash_sector" : flash_sector_lpc18xx,
@@ -447,7 +453,7 @@ class SerialDevice(object):
         # or the device is in the wrong mode.
         # This timeout is too short for slow baud rates but who wants to
         # use them?
-        self._serial.setTimeout(5)
+        self._serial.timeout = 5
         # device wants Xon Xoff flow control
         if xonxoff:
             self._serial.setXonXoff(1)
@@ -491,8 +497,8 @@ class SerialDevice(object):
 
     def readline(self, timeout=None):
         if timeout:
-            ot = self._serial.getTimeout()
-            self._serial.setTimeout(timeout)
+            ot = self._serial.timeout
+            self._serial.timeout = timeout
 
         line = b''
         while True:
@@ -512,7 +518,7 @@ class SerialDevice(object):
             line += c
 
         if timeout:
-            self._serial.setTimeout(ot)
+            self._serial.timeout = ot
 
         return line.decode("UTF-8", "ignore")
 
