@@ -326,6 +326,13 @@ cpu_parms = {
             "devid": 0x0444102B,
             "flash_prog_buffer_size" : 1024
         },
+        "lpc11c14" : {
+            # Cannot autodetect from device id 339742763(0x1440102b), set cpu name manually
+            "flash_sector" : flash_sector_lpc11xx,
+            "flash_prog_buffer_base" : 0x10000400,
+            "devid": 0x1440102b,
+            "flash_prog_buffer_size" : 1024
+        },
         "lpc11c24" : {
             "flash_sector" : flash_sector_lpc11xx,
             "flash_prog_buffer_base" : 0x10000400,
